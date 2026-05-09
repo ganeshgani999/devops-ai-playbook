@@ -8,7 +8,7 @@ module "vpc" {
   cluster_name     = var.cluster_name
 }
 
-
+  
 module "eks" {
   source = "./modules/eks"
 

@@ -11,10 +11,9 @@ create_database() {
 EOSQL
 }
 
-# Create additional databases
 create_database auth_db
 create_database products_db
 create_database orders_db
 create_database users_db
 
-echo "All databases created successfully!"
+echo 'All databases created successfully!'
