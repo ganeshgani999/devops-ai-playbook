@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: 434729668911.dkr.ecr.us-east-1.amazonaws.com/gateway:91f92123a380d3b05ade7025403421fcee512124
+          image: 434729668911.dkr.ecr.us-east-1.amazonaws.com/gateway:db1fc9891e55c218b1046d7967c6f0c69228e6f6
           ports:
             - containerPort: 3001
           env:
