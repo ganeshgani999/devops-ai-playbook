@@ -4,6 +4,7 @@ metadata:
   name: boutique-db-restore
   namespace: boutique
 spec:
+  ttlSecondsAfterFinished: 300
   backoffLimit: 3
   template:
     spec:
@@ -20,8 +21,14 @@ spec:
                 sleep 2
               done
 
+              echo "Creating databases if not exist..."
+              psql -h boutique-postgres -U postgres -c "SELECT 'CREATE DATABASE auth_db' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'auth_db')\gexec"
+              psql -h boutique-postgres -U postgres -c "SELECT 'CREATE DATABASE users_db' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'users_db')\gexec"
+              psql -h boutique-postgres -U postgres -c "SELECT 'CREATE DATABASE products_db' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'products_db')\gexec"
+              psql -h boutique-postgres -U postgres -c "SELECT 'CREATE DATABASE orders_db' WHERE NOT EXISTS (SELECT FROM pg_database WHERE datname = 'orders_db')\gexec"
+
               echo "Restoring dump..."
-              psql -h boutique-postgres -U postgres -f /dump/boutique_full.sql
+              psql -h boutique-postgres -U postgres -f /dump/boutique_full.sql || true
 
               echo "Creating auth_db schema..."
               psql -h boutique-postgres -U postgres -d auth_db -c "
