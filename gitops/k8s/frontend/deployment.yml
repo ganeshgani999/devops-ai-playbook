@@ -17,10 +17,7 @@ spec:
         - name: frontend
           image: 434729668911.dkr.ecr.us-east-1.amazonaws.com/frontend:1075affe06176c9f876fe8334257ce4cfb60c526
           ports:
-            - containerPort: 3000
-          env:
-            - name: REACT_APP_API_URL
-              value: "http://gateway:3001/api"
+            - containerPort: 80
 ---
 apiVersion: v1
 kind: Service
@@ -32,7 +29,6 @@ spec:
     app: frontend
   ports:
     - protocol: TCP
-      port: 3000
-      targetPort: 3000
+      port: 80
+      targetPort: 80
   type: ClusterIP
-
